@@ -1,0 +1,33 @@
+<% @employments.each do |employment| 
+  unless employment.company.blank?
+  %>
+
+    <div class="row">
+      <div class="twelve columns">
+        <div class="panel listing">
+          <div class="three columns title">
+            <%= employment.company %>
+          </div>
+
+          <div class="three columns designation">
+            <%= employment.position %>
+          </div>
+
+
+          <div class="four columns designation">
+            <%= employment.start_date.to_time.strftime("%b %Y") rescue nil %> - <%= employment.is_present? ? "Present" : employment.end_date.to_time.strftime("%b %Y").to_s rescue nil %>
+          </div>
+          <div class="two columns">
+            <a href="#" class="red">Delete</a>
+          </div>
+          <div class="row">
+            <div class="twelve columns listing-paragraph">
+              <p><%= employment.description %></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

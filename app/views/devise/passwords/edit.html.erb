@@ -1,0 +1,32 @@
+<div class="super-hack-div" id="sign-in-page">
+  <div id="post-application">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+          <div class="white-form">
+            <p class="title center-text">Change your password</p>
+            <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put ,class: "settings-personal"}) do |f| %>
+              <%= f.error_notification %>
+
+              <%= f.input :reset_password_token, as: :hidden %>
+              <%= f.full_error :reset_password_token %>
+
+                <%= f.input :password, label: "New password", required: true, autofocus: true %><br/><br/><br/>
+                <%= f.input :password_confirmation, label: "Confirm your new password", required: true %><br/><br/><br/>
+
+                <%= f.button :submit, "Change my password" %>
+            <% end %>
+
+            </div><!-- white-form -->
+
+          </div><!-- col-xs-12 -->
+        </div><!-- row -->
+      </div><!-- container -->
+    </div><!-- post-application -->
+  </div><!-- super-hack-div -->
+
+
+  <%#= render "devise/shared/links" %>
+
+  
+  

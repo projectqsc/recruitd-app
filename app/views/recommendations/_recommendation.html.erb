@@ -1,0 +1,20 @@
+<% @recommendations.each do |recommend| %>
+  <div class="well">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="textbluebold">
+          <%= recommend.name %>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <%= recommend.email %>
+      </div>
+
+
+      <div class="col-md-4">
+        <%= recommend.status %>
+      </div>
+    </div>
+  </div>
+<% end %>

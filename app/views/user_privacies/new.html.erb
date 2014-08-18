@@ -1,0 +1,32 @@
+<div class="super-hack-div privacy-settings" id="settings-page">
+  <div id="post-application">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-9 col-md-offset-1">
+
+          <p class="title">Privacy</p>
+          <hr>
+
+          <p class="text">Invite your friends to Hired from this page and help them land the job of their dreams. They’ll get 5 to 15 real job offers from 700+ top companies in one week, and you'll receive a $1337 bonus for each person you help get Hired Invite your friends to Hired from this page and help them land the job of their dreams. They’ll get 5 to 15 real job offers from 700+ top companies in one week, and you'll receive a $1337 bonus for each person you help get Hired.</p>
+
+          <div class="white-form">
+            <p class="title">Industry</p>
+            <hr>
+
+            <p class="sub-title">Please specify</p>
+
+            <%= form_for(@user_privacy, :remote => true) do |f| %>
+              <%= f.text_field :name %>
+              <%= f.submit :add ,:style => "width: 99px;float: right;height: 50px;margin-top: 0;background-color: #777b7f;border: medium none;border-radius: 5px;color: white;font-size: 13px;font-weight: 400;"%>
+
+            <% end %>
+
+            <div id ="privacy">
+              <%= render :partial => "index" %>
+            </div>
+          </div><!-- white-form -->
+        </div><!-- col-xs-12 -->
+      </div><!-- row -->
+    </div><!-- container -->
+  </div><!-- post-application -->
+</div><!-- super-hack-div -->

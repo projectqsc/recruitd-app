@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="twelve columns roles">
+    <h4>Locations</h4>
+    <p>Write a detailed summary of your work to get the best job offers.Write a detailed summary of your work.</p>
+  </div>
+</div>
+
+<% @locations.each do |location| 
+  sub_jobs = Location.find(:all,:conditions=>["parentid =?",location.id]) 
+  if !sub_jobs.blank? %>
+    <div class="row">
+      <div class="twelve columns banking">
+        <h5><%=location.name %></h5>
+        <div class="four columns">
+          <% sub_jobs.each do |sub_job| %>
+            <input id="<%=sub_job.id%>" type="checkbox"><label for="Sub Category"><%=sub_job.name%></label>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="four columns">
+      <input id="<%=location.id%>" type="checkbox"><label for="Sub Category"><%=location.name%></label>
+
+    </div>
+  <% end %>
+<% end %>

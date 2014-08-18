@@ -1,0 +1,4 @@
+$('#employments_details').html('<%=j render partial: 'profiles/add_employment_form' , :locals => { :employment=>Employment.new} %><%=j render partial: 'employments' , :locals => { :employment=>@employments} %>')
+$("#employment_company").val(" ");
+$("#employment_position").val(" ");
+$("#employment_description").val(" ");

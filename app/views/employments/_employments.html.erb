@@ -1,0 +1,30 @@
+<% @employments.each do |employment| %>
+    <div class="well">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="textbluebold">
+          <%= employment.company %>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <%= employment.position %>
+      </div>
+
+      <div class="col-md-4">
+        <%= employment.startdate.to_time.strftime("%b %Y") rescue nil %> - <%= employment.is_present? ? "Present" : employment.enddate.to_time.strftime("%b %Y")rescue nil %>
+      </div>
+
+      <div class="col-md-2">
+        <%= link_to "Delete", user_profile_employment_path(current_user, @profile, employment), :method => :delete, :data => {:confirm => "Are you Sure ?"}, :class => "delete" %>
+      </div>
+    </div>
+    <br/>
+
+    <div class="row">
+      <div class="col-md-12">
+        <%= employment.description %>
+      </div>
+    </div>
+  </div>
+<% end %>

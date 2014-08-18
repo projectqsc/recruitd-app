@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recruitd</title>
+  <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "jquery" %>
+    <%= javascript_include_tag "jquery_ujs" %>
+    <%= javascript_include_tag "jquery.min.js" %>
+    <%= filepicker_js_include_tag %>
+    <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+  <!-- Navigation -->
+
+  <nav class="top-bar fixed">
+    <ul>
+<!--      <li class="name"><h1><a href="#"><img src="images/logo.png" alt="Flag"/></a></h1></li>
+-->      <li class="toggle-topbar"><a href="#"></a></li>
+    </ul>
+
+    <section>
+      <ul class="left">
+        <% if user_signed_in? %>
+        <li><a href="#">OFFERS <span class="red">(12)</span></a></li>
+        <li>
+          <%= link_to "VIEW PROFILE", current_user %>
+        </li>
+        
+      </ul>
+<a href="#"><%= image_tag "logo-recruitd.png" ,:id=>"logo"%></a>
+      <ul class="right">
+    <li class="has-dropdown not-click">
+            <%= link_to "SETTINGS", edit_user_registration_path %>
+            <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
+              <li><a href="#">First link in dropdown</a></li>
+            </ul>
+          </li>
+         <li>
+          <a href="#">INVITE</a>
+        </li>
+        <li>
+          
+        </li>
+        <% else %>
+        <li>
+          
+        </li>
+        <% end %>
+
+      </ul>
+    </section>
+  </nav><br /><br />
+
+  <!-- End Navigation -->
+
+
+  <!-- Header -->
+
+<!--    <img src="http://placehold.it/1600x600&text=Header"><br><br>
+-->
+  <!-- End Header -->
+
+
+
+
+  <div class="container">
+   <div class="page-header" id="banner">
+    <div class="row">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

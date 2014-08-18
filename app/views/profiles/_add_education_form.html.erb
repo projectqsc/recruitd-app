@@ -1,0 +1,31 @@
+
+
+
+<%= form_for([current_user,@profile,@education],:remote=>true) do |f| %>
+  <div class="field">
+    <%= f.label :college %>
+    <br>
+    <%= f.text_field :college %>
+  </div>
+  <div class="field">
+    <%= f.label :degree %>
+    <br>
+    <%= f.text_field :degree %>
+  </div>
+  <div class="field">
+    <%= f.label :field %>
+    <br>
+    <%= f.text_field :field %>
+  </div>
+  <div class="field">
+    <%= f.label :graduation_year %>
+    <br>
+    <%= f.text_field :graduation_year %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+
+  </div>
+<% end %>
+
+

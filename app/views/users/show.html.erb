@@ -1,0 +1,295 @@
+<div class="super-hack-div" id="profile-page">
+  <div class="wrapper">
+    <div class="container">
+      <div class="row">
+
+
+        <div class="col-md-9 main-content">
+          <div class="profile-box step">
+            <div class="row">
+              <div class="col-md-3">
+                <% if @user.profile.filepicker_url.blank? %>
+                  <%= image_tag @user.profile.small_picture_url ,:class=>"avatar"%>
+                <% else %>        
+                  <%= filepicker_image_tag @user.profile.filepicker_url, w: 105, h: 105, fit: 'clip' %>
+                <% end %>
+              </div><!-- col-md-3 -->
+
+              <div class="col-md-9">
+                <p class="title"><%= @user.name %></p>
+                
+                <p><%= current_user.profile.try(:skills).truncate(140).try(:html_safe) %></p>
+
+                <ul class="short-info">
+                  <li><%= current_user.profile.try(:employments).last.try(:position) %> at <%= current_user.profile.try(:employments).last.try(:company) %> in <%= current_user.profile.try(:location) %>,<%= current_user.profile.try(:country)%></li>
+                  <li><%= current_user.profile.try(:educations).last.try(:degree) %> in <%= current_user.profile.try(:educations).last.try(:field) %> from <%= current_user.profile.educations.last.try(:college) %></li>
+                  <li><% Job.where("is_parent =?",true).each do |job|
+                  sub_jobs = Job.where("parentid =?",job.id)
+                  %>
+                    Interested in <%= sub_jobs.map(&:name).join(",") %>
+                    <% end %>
+                  </li>
+                </ul>
+              </div><!-- col-md-9 -->
+
+              <p class="candidate-links"><a href="#" class="website">Resume</a><span>  |  </span><a href="#" class="website">LinkedIn</a><span>  |  </span><a href="#" class="website">Facebook</a><span>  |  </span><a href="#" class="website">Twitter</a></p>
+
+            </div><!-- row -->
+          </div><!-- profile-box step -->
+
+          <div class="candidate-info step">
+
+            <div class="summery">
+              <p class="title">Summary</p>
+              <hr>
+              <p> <%=@user.profile.summary%> </p>
+            </div><!-- summery -->
+
+
+            <div class="experience">
+              <p class="title">work experience</p>
+              <hr>
+
+              <% @profile.employments.each do |employment| %>
+                <div class="work-before-item">
+                  <p class="company"><%= employment.company %><span class="work-period"> <%= employment.startdate.to_time.strftime("%b %Y") rescue nil %><%= employment.is_present? ? "- Present" : " - " + employment.enddate.to_time.strftime("%b %Y").to_s rescue nil %></span></p>
+                  <p class="position"><%= employment.position %>&</p>
+                  <p class="work-description"><%= employment.description %></p>
+                </div><!-- work-item -->
+              <% end %>
+
+            </div><!-- experience -->
+
+
+            <div class="industry">
+              <p class="title">industry</p>
+              <hr>
+              <%= @profile.industries.map(&:name).join(",") %>
+            </div><!-- industry -->
+
+
+            <div class="education">
+              <p class="title">education</p>
+              <hr>
+
+              <% @profile.educations.each do |edu| %>
+                <div class="education-item">
+                  <p class="university"><%= edu.college %><span class="period"><%= edu.graduation_year %></span></p>
+                  <p class="degree"><%= edu.degree %>&nbsp•&nbsp<%= edu.field %></p>
+                </div><!-- education-item -->
+              <% end %>
+            </div><!-- education -->
+
+
+
+
+            <div class="additional-info">
+              <p class="title">Additional Information</p>
+              <hr>
+              <p class="sub-title">Interests</p>
+              <p>Generally speaking, developers with strong knowledge of iOS, Android, Python or Ruby & experience at venture-funded companies do the best. Demand for specific types of skill sets can vary by geography.</p>
+
+              <p class="sub-title">Extra Curricular Activities</p>
+              <p>Generally speaking, developers with strong knowledge of iOS, Android, Python or Ruby & experience at venture-funded companies do the best. Demand for specific types of skill sets can vary by geography.</p>
+
+
+              <div class="languages">
+                <p class="title">Languages</p>
+                <hr>
+                <%= @profile.languages.map(&:name).join(",") %>
+                  
+              </div><!-- additional-info -->
+            </div><!-- languages -->
+
+
+
+
+            <div class="recommendations">
+              <p class="title">recommendations</p>
+              <hr>
+
+              <div class="recommendations-item">
+                <% @profile.recommendations.each do |edu| %>
+                  <p class="who-gave"><%= edu.name %></p>
+                  <p class="position"><%= edu.status %></p>
+                <% end %>
+              </div><!-- recommendations-item -->
+            </div>
+
+
+            <div class="questions">
+              <p class="title">questions & answers</p>
+              <hr>
+
+              <p><span class="who-asks">Talent Advocate: </span>Where would be willing to work?</p>
+              <p class="answer"><img src="" class="avatar">Dubai, Abu Dhabi, Media city, Freezone Areas</p>
+
+              <p><span class="who-asks">Talent Advocate: </span>Where would be willing to work?</p>
+              <p class="answer"><img src="" class="avatar"><input type="text"></p>
+            </div><!-- questions -->
+
+
+          </div><!-- candidate-info -->
+
+        </div><!-- col-md-9 main-content -->
+
+
+        <div class="col-md-3 sidebar">
+          <p class="title">auction ends in</p>
+          <div class="timer">
+          </div><!-- timer -->
+
+          <p class="title">process</p>
+          <% if @user.profile.profile_status == "Approved" %>
+          <div class="steps">
+            <div class="step">
+              <div class="step-name"><p>Complete Profile</p></div>
+              <div class="step-text"><p>Your profile has been reviewed and we are not in your geo graphic market yet.</p>
+                <%= button_to "submit","",:method => "get",:class => "btn-cls" %>
+              </div><!-- step-text -->
+            </div><!-- step -->
+            <div class="step active">
+              <div class="step-name"><p>Get Offers</p></div>
+            </div><!-- step -->
+            <div class="step active">
+              <div class="step-name"><p>Meet employers</p></div>
+            </div><!-- step -->
+            <div class="step active">
+              <div class="step-name last"><p>Accept Offers</p></div>
+            </div><!-- step -->
+          </div><!-- steps -->
+          <% else %>
+          <div class="steps">
+            <div class="step active">
+              <div class="step-name"><p>Complete Profile</p></div>
+              <div class="step-text"><p>Your profile has been reviewed and we are not in your geo graphic market yet.</p>
+                <%= button_to "submit",post_app_user_path,:method => "get",:class => "btn-cls" %>
+              </div><!-- step-text -->
+            </div><!-- step -->
+            <div class="step">
+              <div class="step-name"><p>Get Offers</p></div>
+            </div><!-- step -->
+            <div class="step">
+              <div class="step-name"><p>Meet employers</p></div>
+            </div><!-- step -->
+            <div class="step">
+              <div class="step-name last"><p>Accept Offers</p></div>
+            </div><!-- step -->
+          </div><!-- steps -->
+          <% end %>
+
+          <p class="title">lates offers</p>
+
+          <div class="offer">
+            <div class="offer-title">
+              <p class="offer-name">The Minerva Project Dubai</p>
+            </div>
+            <div class="position item">
+              <p class="title">Position</p>
+              <p class="text">Lead Designer</p>
+            </div>
+            <div class="location item">
+              <p class="title">Location</p>
+              <p class="text">Dubai, United Arab Emirates</p>
+            </div>
+            <div class="compensation item">
+              <p class="title">Compensation</p>
+              <p class="text">$123,000</p>
+            </div>
+          </div><!-- offer -->
+
+          <div class="offer">
+            <div class="offer-title">
+              <p class="offer-name">The Minerva Project Dubai</p>
+            </div>
+            <div class="position item">
+              <p class="title">Position</p>
+              <p class="text">Lead Designer</p>
+            </div>
+            <div class="location item">
+              <p class="title">Location</p>
+              <p class="text">Dubai, United Arab Emirates</p>
+            </div>
+            <div class="compensation item">
+              <p class="title">Compensation</p>
+              <p class="text">$123,000</p>
+            </div>
+          </div><!-- offer -->
+
+          <div class="offer">
+            <div class="offer-title">
+              <p class="offer-name">The Minerva Project Dubai</p>
+            </div>
+            <div class="position item">
+              <p class="title">Position</p>
+              <p class="text">Lead Designer</p>
+            </div>
+            <div class="location item">
+              <p class="title">Location</p>
+              <p class="text">Dubai, United Arab Emirates</p>
+            </div>
+            <div class="compensation item">
+              <p class="title">Compensation</p>
+              <p class="text">$123,000</p>
+            </div>
+          </div><!-- offer -->
+
+          <div class="offer">
+            <div class="offer-title">
+              <p class="offer-name">The Minerva Project Dubai</p>
+            </div>
+            <div class="position item">
+              <p class="title">Position</p>
+              <p class="text">Lead Designer</p>
+            </div>
+            <div class="location item">
+              <p class="title">Location</p>
+              <p class="text">Dubai, United Arab Emirates</p>
+            </div>
+            <div class="compensation item">
+              <p class="title">Compensation</p>
+              <p class="text">$123,000</p>
+            </div>
+          </div><!-- offer -->
+
+          <div class="offer">
+            <div class="offer-title">
+              <p class="offer-name">The Minerva Project Dubai</p>
+            </div>
+            <div class="position item">
+              <p class="title">Position</p>
+              <p class="text">Lead Designer</p>
+            </div>
+            <div class="location item">
+              <p class="title">Location</p>
+              <p class="text">Dubai, United Arab Emirates</p>
+            </div>
+            <div class="compensation item">
+              <p class="title">Compensation</p>
+              <p class="text">$123,000</p>
+            </div>
+          </div><!-- offer -->
+
+
+        </div><!-- col-md-3 sidebar -->
+
+      </div><!-- row -->
+    </div><!-- container -->
+  </div><!-- wrapper -->
+</div><!-- super-hack-div -->
+
+
+<style>
+  .btn-cls{
+    background-color: #777b7f;
+    border: medium none;
+    border-radius: 5px;
+    color: white;
+    font-size: 13px;
+    font-weight: 400;
+    height: 50px;
+    margin-top: 10px;
+    text-transform: uppercase;
+    width: 100%;
+  }
+</style>

@@ -1,0 +1,32 @@
+<% @educations.each do |education| %>
+  <div class="well">
+    <div class="row">
+      <div class="col-md-10">
+        <div class="textbluebold">
+          <%= education.degree %>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <%= link_to "Delete", user_profile_education_path(current_user, @profile, education), :method => :delete, :data => {:confirm => "Are you Sure"}, :class => "delete" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <b class="text-muted">
+          <%= education.college %>
+        </b>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <b class="text-muted">
+          <%= education.graduation_year %>
+        </b>
+      </div>
+    </div>
+
+  </div>
+<% end %>

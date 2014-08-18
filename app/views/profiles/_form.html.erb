@@ -1,0 +1,385 @@
+<%= tinymce %>
+
+<div class="super-hack-div" id="edit-profile-page">
+  <div class="wrapper">
+    <div class="container">
+      <div class="row">
+
+        <div class="span3 bs-docs-sidebar">
+          <nav class="col-md-3" id="spy" >
+            <ul class="nav scrollspy-steps affix" >
+              <li style="background-color:white;height: 39px;" class="l1"><a href="#personal-info" onclick="li_one();">Personal Information</a></li>
+              <li style="background-color:white;height: 39px" class="l2"><a href="#job-preferences" onclick="li_two();">Job Preferences</a></li>
+              <li style="background-color:white;height: 39px" class="l3"><a href="#web-presence" onclick="li_three();">Web Presence</a></li>
+              <li style="background-color:white;height: 39px" class="l4"><a href="#summary" onclick="li_four();">Summary</a></li>
+              <li style="background-color:white;height: 39px" class="l5"><a href="#work-history" onclick="li_five();">Work History</a></li>
+              <li style="background-color:white;height: 39px" class="l6"><a href="#industry" onclick="li_six();">Industry</a></li>
+              <li style="background-color:white;height: 39px" class="l7"><a href="#education" onclick="li_seven();">Education</a></li>
+              <li style="background-color:white;height: 39px" class="l8"><a href="#additional" onclick="li_eight();">Additional Information</a></li>
+              <li style="background-color:white;height: 39px" class="l9"><a href="#languages" onclick="li_nine();">Languages</a></li>
+              <li style="background-color:white;height: 39px" class="l10"><a href="#recommendation" onclick="li_ten();">Recommendation</a></li>
+              <li style="background-color:white;height: 50px" class="l11"><%= button_tag :Save,:style => "width:150px;height:30px;margin-top:-10px;background-color:#777b7f;color:white;border-radius: 5px;border: medium none;",:onclick => "profile_submit();"%></li>
+            </ul>
+          </nav><!-- col-md-3 sidebar-scrollspy -->
+        </div>
+
+        <div class="col-md-9" id="spy1ed-content">
+          <div class="scrollspy-hack">
+            <%= form_for([current_user, @profile],:remote=>true, :authenticity_token => true, :html => {:id => "profile_page"}) do |f| %>
+              <% form_authenticity_token %>
+              <% if @profile.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+                  <ul>
+                    <% @profile.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+              <section  id="personal-info" class="step">
+                <p class="title">
+                  Personal Information
+                </p>
+                <hr><br/>
+
+                <p class="item-title">
+                  Profile photo
+                </p>
+
+                <br/>
+
+                <div class="row">
+                  <div class="col-sm-2">
+                    <% if @profile.filepicker_url.blank? %>
+                      <%= image_tag @profile.small_picture_url, :class => "imageprop" %>
+                    <% else %> 
+                      <%= image_tag @profile.filepicker_url, :class => "imageprop" %>
+                    <% end %>
+                  </div>
+
+                  <div class="col-sm-1 btnstyle">
+                    <!-- User#filepicker_url is a regular string column -->
+                    <% if @profile.filepicker_url.blank? %>
+                      <%= f.filepicker_field :filepicker_url ,:button_class=>"change-avatar profile-button change-avatar-btn",:button_text=>"Attach" , onchange: 'onPhotoUpload(event)' %>
+                    <% else %>
+                      <%= f.filepicker_field :filepicker_url ,:button_class=>"change-avatar profile-button change-avatar-btn",:button_text=>"Change" , onchange: 'onPhotoUpload(event)' %> 
+                    <% end %>
+                  </div>
+                </div>
+
+                <br><br>
+
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <p class="field-title">First Name <span class="required">*</span></p>
+                      <%= f.text_field :first_name %>
+                    </div>
+
+                    <div class="form-group">
+                      <p class="field-title">Phone <span class="required">*</span></p>
+                      <%= f.text_field :phone %>
+                    </div>
+
+
+                    <div class="form-group">
+                      <p class="field-title">City <span class="required">*</span></p>
+                      <%= f.text_field :location %>  
+                    </div>
+
+                  </div><!-- col-md-3 -->
+
+                  <div class="col-md-5 col-md-offset-1">
+
+                    <div class="form-group">
+                      <p class="field-title">Last Name <span class="required">*</span></p>
+                      <%= f.text_field :last_name %>
+                    </div>
+
+
+                    <div class="form-group">
+                      <p class="field-title">Email <span class="required">*</span></p>
+                      <%= f.text_field :email %>
+                    </div>
+
+                    <div class="form-group">
+                      <p class="field-title" >Country <span class="required">*</span></p>
+                      <%= f.select :country,options_for_select(Location.country_names,:selected => @profile.country) %>  
+                    </div>
+
+                  </div><!-- col-md-3 -->
+
+                </div><!-- row --><br/>
+                <p><%= f.text_area :skills,:cols => "60", :rows => "5",:maxlength => 140 %></p>
+
+                <p class="field-title">Resume</p>
+
+                <% unless @profile.resume_url.blank? %>
+                  <%= filepicker_save_button "Download", @profile.resume_url, "pdf" %>
+                  <%= f.filepicker_field :resume_url ,:extensions=>".pdf",:button_text=>"Change File",:button_class=>"change-avatar profile-button" , onchange: 'onPhotoUpload(event)' %> 
+
+                <% else %>        
+                  <%= f.filepicker_field :resume_url ,:extensions=>".pdf",:button_text=>"Attach",:button_class=>"change-avatar profile-button" , onchange: 'onPhotoUpload(event)' %> 
+                <% end %>
+
+              </section><!-- step -->
+            <% end %>
+
+            <section id="job-preferences" class="step">
+              <p class="title">Job Preferences</p>
+              <hr>
+
+              <p class="title">Roles</p>
+              <p class="text">Write a detailed summary of your work to get the best job offers.Write a detailed summary of your work.</p><br>
+
+              <% @jobs.each do |job| 
+                sub_jobs = Job.where("parentid =?",job.id) %>
+                <p class="sub-title"><%=job.name %></p>
+                <div class="row">
+                  <div class="col-md-4">
+                    <% sub_jobs.each do |sub_job| %>
+                      <p><input type="checkbox"><%=sub_job.name%></p>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </section>
+
+            <section id="web-presence" class="step">
+              <p class="title">Web Presence</p>
+              <hr>
+
+              <p class="text">Write a detailed summary of your work to get the best job offers.Write a detailed summary of your work to get the best job offers.Write a detailed summary of your work to get the best job offers.</p>
+              <div class="row">
+                <div class="col-md-4">
+                  <button class="btn-primary socialbtn">LINKED DISCONNECT</button>
+                </div><!-- col-md-4 -->
+                <div class="col-md-4">
+                  <button class="facebook socialbtn">FACEBOOK CONNECT</button>
+                </div><!-- col-md-4 -->
+                <div class="col-md-4">
+                  <button class="twitter socialbtn">TWITTER CONNECT</button>
+                </div><!-- col-md-4 -->
+              </div><!-- row -->
+            </section><!-- web-presence -->
+
+            <section id="summary" class="step">
+              <p class="title">Summary</p>
+              <hr>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    Write a detailed summary of your work to get the best job offers.
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    WINNING SUMMARIES
+                  </div>
+                </div>
+              </div>
+
+              <ul>
+                <li>Details of projects you've tackled at your current employer.</li>
+                <li>Technical challenges you've overcome.</li>
+                <li>What you're passionate about and looking for in your next job.</li>
+                <li>Links to personal projects and websites you've built on the weekends at Hackathons, etc.</li>
+                <li>If you were a VP or Team Lead, details on team size and your management philosophy.</li>
+              </ul>
+
+              <br/>
+
+              <%= form_for @profile, :url => user_profile_path(current_user,@profile), :remote => true do |f|%>
+                <%= f.text_area :summary ,:class=>"tinymce" %>
+                <br /><br />
+                <button type="submit" class="profile-button">Update</button>
+              <% end %>
+            </section><!-- summary -->
+
+
+
+            <!-- Work history section starts -->
+            <section id="work-history" class="step">
+              <p class="title">Work History</p>
+              <hr>
+
+
+              <div id="employments_details">
+                <%= render :partial=>"add_employment_form"%>
+                <%= render :partial=>"employments/employments"%>
+              </div>
+
+            </section><!-- work-history -->
+
+
+            <section id="industry" class="step">
+              <p class="title">Industry</p>
+              <hr>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-12">
+                    Write a detailed summary of your work to get the best job offers.Write a detailed summary of your work to get the best job offers.Write a detailed summary of your work to get the best job offers.
+                  </div>
+                </div>
+              </div>
+
+              <br/>
+
+              <div id="employments_details">
+                <%= render :partial=>"new_industry"%>
+                <%= render :partial=>"industries/industries"%>
+              </div>
+
+            </section><!-- work-history -->
+
+
+
+            <section id="education" class="step">
+              <p class="title">Education</p>
+              <hr>
+
+              <div id="employments_details">
+                <%= render :partial=>"new_education"%>
+                <%= render :partial=>"educations/educations"%>
+              </div>
+
+            </section><!-- work-history -->
+
+
+
+
+            <section id="additional" class="step">
+              <p class="title">Additional Information</p>
+              <hr />
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-12">
+                    Write a detailed summary of your work to get the best job offers.
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-12">
+                    WINNING SUMMARIES
+                  </div>
+                </div>
+              </div>
+
+              <ul>
+                <li>Details of projects you've tackled at your current employer.</li>
+                <li>Technical challenges you've overcome.</li>
+                <li>What you're passionate about and looking for in your next job.</li>
+                <li>Links to personal projects and websites you've built on the weekends at Hackathons, etc.</li>
+                <li>If you were a VP or Team Lead, details on team size and your management philosophy.</li>
+              </ul>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <%= text_area_tag :summary ,nil,:class=>"tinymce" %>
+                </div>
+              </div>
+              <br/>
+              <div class="row">
+                <div class="col-md-10">
+                  <button type="submit" class="profile-button">Update</button>
+                </div>
+              </div>
+
+
+            </section><!-- additional -->
+
+
+
+            <section id="languages" class="step">
+              <p class="title">Languages</p>
+              <hr>
+              <div id="employments_details">
+
+                <%= form_for @profile, :url => user_profile_path(current_user,@profile), :method => "PUT" do |f|%>
+                
+                  <%= render :partial=>"new_language", :locals => { :f => f } %>
+                  
+                <div class="row">
+                  <div class="col-sm-2">
+                    <%= f.submit "save", :class => "profile-button" %>
+                  </div>
+                </div>
+                
+                <% end %>
+
+                
+               <%#= render :partial=>"languages/languages"%>
+              </div>
+            </section><!-- work-history -->
+           
+
+            <section id="recommendation" class="step">
+              <p class="title">Recommendation</p>
+              <hr>
+
+              <p class="text">
+                Write a detailed summary of your work to get the best job offers.Write a detailed summary of your work to get the best job offers.Write a detailed summary of your work to get the best job offers.
+              </p>
+              <div id="employments_details">
+                <%= render :partial=>"new_recommendation" %><br/>
+                <%= render :partial => "recommendations/recommendation" %>
+              </div>
+            </section><!-- work-history -->
+
+
+          </div><!-- col-md-9 -->
+        </div><!-- scrollspy-hack -->
+
+      </div><!-- row -->
+    </div><!-- container -->
+  </div><!-- wrapper -->
+
+
+<%#= render :partial=>'locations' %>
+
+
+</div> 
+
+
+<script type="text/javascript">
+  function onPhotoUpload(event) {
+    document.getElementById("edit_profile_<%=@profile.id%>").submit();
+  }
+  
+  <%#*$(document).ready(function() {%>
+    <%#*$("start_date").datepicker();%>
+  <%#*});%>
+
+
+
+  function profile_submit() {
+    $("#profile_page").submit();
+  }
+
+</script>
+
+
+<style>
+  #profile_country{
+    border: 1px solid #e1e2e5;
+    border-radius: 5px;
+    height: 50px;
+    width: 285px;
+    margin-bottom: 10px;
+  }
+
+  ul.scrollspy-steps li {
+    padding: 10px;
+    font-size: 14px;
+  }
+</style>

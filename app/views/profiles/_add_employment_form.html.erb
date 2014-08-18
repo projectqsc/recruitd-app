@@ -1,0 +1,45 @@
+<%= form_for([current_user,@profile,@employment],:remote => true) do |f| %>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-4">
+        <p class="field-title">Company</p>
+        <%= f.text_field :company %>
+      </div><!-- col-md-4 -->
+
+      <div class="col-md-4">
+        <p class="field-title">Position</p>
+        <%= f.text_field :position %>
+      </div><!-- col-md-4 -->
+
+      <div class="col-md-2">
+        <p class="field-title">Start</p>
+        <%= f.date_select :startdate, {:start_year => Time.now.year - 10, :end_year => Time.now.year + 10, :discard_day => true}, :selected => @employment.startdate %>
+        
+      </div><!-- col-md-2 -->
+
+      <div class="col-md-2">
+        <p class="field-title">End</p>
+        <%= f.date_select :enddate,{:start_year => Time.now.year - 10, :end_year => Time.now.year + 10, :discard_day => true}, :selected => @employment.enddate%>
+      </div><!-- col-md-2 -->
+    </div><!-- row -->
+  </div>
+
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="field-title">Description</p>
+        <%= f.text_field :description,:class=>"description-text" %>
+      </div><!-- col-md-12 -->
+
+    </div><!-- row -->
+  </div>
+
+  <div class="form-group" style="margin-bottom: 22px;">
+    <div class="row">
+      <div class="col-md-2">
+        <p class="field-title"></p>
+        <%= f.submit "Add",:class=>"change-avatar profile-button" %></div>
+    </div>
+  </div>
+  
+<% end %>

@@ -1,0 +1,19 @@
+<%= form_for([current_user,@profile,@recommendation]) do |f| %>
+  <div class="row">
+    <div class="col-md-4">
+      <p class="field-title">Name</p>
+      <%= f.text_field :name %>
+    </div><!-- col-md-5 -->
+    
+    <div class="col-md-4">
+      <p class="field-title">Email</p>
+      <%= f.email_field :email %>
+    </div><!-- col-md-5 -->
+    
+      <div class="col-md-3">
+        <p class="field-title"></p>
+        <%= f.submit "Send Request",:class=>"change-avatar profile-button", :style => 'position: relative; top: 22px;' %>
+      </div>
+    
+  </div><!-- row -->
+<% end %>

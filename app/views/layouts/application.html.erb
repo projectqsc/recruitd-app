@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RECRUITD</title>
+
+    <!-- Bootstrap -->
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%#= javascript_include_tag "jquery" %>
+    <%#= javascript_include_tag "jquery_ujs" %>
+    <%#= javascript_include_tag "jquery.min.js" %>
+    <%= filepicker_js_include_tag %>
+    <%= csrf_meta_tags %>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+    <%= tinymce_assets %>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default" role="navigation" style="position: fixed;">
+      <div class="container-fluid container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <% if current_user %>
+              <% profile = current_user.profile %>
+              <li><a href="#">Offers(12)</a></li>
+              <li><a href="/users/<%=current_user.id%>">VIEW PROFILE</a></li>
+              <% unless profile.blank? %>
+                <li><a href="/users/<%=current_user.id%>/profiles/<%=profile.id%>/edit">EDIT PROFILE</a></li>
+              <% end %>
+            <% else %>
+              <li><a href="#">for employers</a></li>
+              <li><a href="#">about</a></li>
+              <li><a href="#">faq</a></li>
+            <% end %>
+          </ul>
+
+          <div class="logo"><img src="/assets/main-logo.png" alt="main-logo" width="180" height="18"></div>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <% if user_signed_in? %>
+                <% profile = current_user.profile %>
+                <% unless profile.blank? %>
+                  <a href="/users/<%= current_user.id %>/settings">SETTINGS</a>
+                <% end %>
+              <% end %>
+            </li>
+
+            <li>
+              <a href="/user_privacies/new">Settings Privacy</a>
+            </li>
+
+            <li>
+              <a href="#">invite</a>
+            </li>
+
+
+            <% if user_signed_in? %>
+              <li>
+                <%= link_to "SIGN OUT", destroy_user_session_path %>
+              </li>
+            <% else %>
+              <li>
+                <%= link_to "SIGN IN", new_user_session_path %>
+              </li>
+              <li>
+                <button>get hired</button>
+              </li>
+            <% end %>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+
+<%= yield%>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <p class="title">Recommend Hired to your friends and receive a reward for any friend who gets a job</p>
+      <hr>
+      <div class="col-md-6 col-md-offset-3">
+        <ul class="footer-menu">
+          <li>
+            <ul class="left">
+              <li>Company</li>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Careers</a></li>
+            </ul>
+          </li>
+          <li>
+            <ul class="middle">
+              <li>Support</li>
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Privacy</a></li>
+              <li><a href="#">Terms</a></li>
+            </ul>
+          </li>
+          <li>
+            <ul class="right">
+              <li>Follow Us</li>
+              <li><a href="#"><img src="/assets/icons/facebook-small.png" alt="facebook-small" width="29" height="30">Facebook</a></li>
+              <li><a href="#"><img src="/assets/icons/twitter-small.png" alt="twitter-small" width="29" height="31">Twitter</a></li>
+              <li><a href="#"><img src="/assets/icons/linkedin-small.png" alt="linkedin-small" width="29" height="30">Linkedin</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- col-md-6 col-md-offset-3 -->
+
+
+    </div><!-- row -->
+
+    <p class="copyright">© 2014 Recruitd. All Rights Reserved.</p>
+
+  </div><!-- container -->
+</footer>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+
+</body>
+</html>

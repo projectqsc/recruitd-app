@@ -1,0 +1,21 @@
+<%= form_for([current_user,@profile,@industry],:remote => true) do |f| %>
+
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="field-title">
+          Please Specify
+        </p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-10">
+        <%= f.text_field :name %>
+      </div>
+      <div class="col-md-2">
+        <%= f.submit "Add",:class=>"change-avatar profile-button" %>
+      </div>
+    </div>
+  </div>
+<% end %>

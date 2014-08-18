@@ -1,0 +1,15 @@
+<% @languages.each do |language| %>
+<div class="well">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="textbluebold">
+        <%= language.name %>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <%= link_to "Delete", user_profile_language_path(current_user, @profile, language), :method => :delete, :data => {:confirm => "Are you Sure"}, :class => "delete" %>
+    </div>
+  </div>
+</div>
+<% end %>

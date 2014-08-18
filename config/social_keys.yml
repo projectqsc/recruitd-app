@@ -1,0 +1,12 @@
+development:
+  github_key: "20f3c2170a8d5e7d23ed"
+  github_secret: "4085dcd3638c516ea44374c537bab5d31acda719"
+
+  linkedin_key: "759vgt28h7sdk4"
+  linkedin_secret: "1777ATgXopRbrVZe"
+production:
+  github_key: "0b89575779fe105f7d47"
+  github_secret: "4c5d161f9d29b97a70d2fb4a2d0d20bbef29fc96"
+
+  linkedin_key: "759vgt28h7sdk4"
+  linkedin_secret: "1777ATgXopRbrVZe"

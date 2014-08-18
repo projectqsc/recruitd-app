@@ -1,0 +1,8 @@
+<p>
+  <strong>Education:</strong></br>
+  <% @profile.educations.each do |edu| %>
+    <%= edu.college %>&nbsp&nbsp<%= edu.graduation_year %></br>
+    <%= edu.degree %>&nbsp&nbsp&nbsp•&nbsp&nbsp<%= edu.field %></br>
+    </br></br>
+  <% end %>
+</p>

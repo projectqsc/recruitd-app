@@ -1,0 +1,66 @@
+<script src="/assets/bootstrap.min.js"></script>
+<script src="/assets/custom.js"></script>
+<div class="super-hack-div" id="settings-page">
+  <div id="post-application">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-xs-12">
+          <div class="white-form">
+            <p class="title center-text">Settings</p>
+
+            <%= form_for(@user, :url => update_settings_user_path(@user),:method => "put",:html =>{:class => "settings-personal",:id => "redirect"} ,:authenticity_token => true) do |f| %>
+
+              <% if @user.errors.any? %>
+                <div id ="error_explanation">
+                  <h2><%= pluralize(@user.errors.count,"error") %> prohibited this user from being saved.</h2>
+                  <ul><% @user.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+
+              <p class="input-title">First Name</p>
+<%= f.text_field :name, :placeholder => "First Name" %><br><br><br>
+              <p class="input-title">Last Name</p>
+              <%= f.text_field :last_name,:placeholder => "Last Name" %><br><br><br>
+              <p class="input-title">City</p>
+              <%= f.text_field :location, :placeholder => "city" %><br><br><br>
+              <p class="input-title">Country</p>
+              <%= f.select :contry,options_for_select(Location.country_names,:selected => @user.contry) %><br><br><br>
+              <p class="input-title">Email</p>
+              <%= f.email_field :email,:placeholder =>'user@domain.com' %><br><br><br>
+              <p class="input-title">Password</p>
+              <%= f.password_field :password,:placeholder => "******" %><br><br>
+            <% end %>
+
+           <br/>
+
+            <p class="unsubscuribe" style=" margin: 20px 0;"><input type="checkbox">Unsubscribe from news & updates</p>
+            <button class="update-settings" onclick = "update();">Update</button>
+
+          </div><!-- white-form -->
+
+          <p class="bottom-settings center-text"><a href="#">Withdraw from All Auctions & Hide Account</a><span> • </span><a href="#">Delete My Account</a></p>
+        </div><!-- col-xs-12 -->
+      </div><!-- row -->
+    </div><!-- container -->
+  </div><!-- post-application -->
+</div><!-- super-hack-div -->
+
+<script>
+
+  function update() {
+    $("form#redirect").submit();
+  }
+</script>
+
+<style>
+  #user_contry{
+    border: 1px solid #e1e2e5;
+    border-radius: 5px;
+    height: 50px;
+    width: 415px;
+    margin-bottom: -33px;
+  }
+</style>

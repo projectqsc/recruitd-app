@@ -1,0 +1,59 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require 'bootstrap.min'
+ *= require 'candidates-style'
+ *= require 'public-style'
+ *= require chosen
+ *= jquery
+ */
+
+#mceu_16-body, #mceu_2-open, #mceu_13, #mceu_14  {
+  display: none;
+}
+
+.profile-button {
+  text-transform: uppercase;
+  width: 120px;
+  height: 50px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #777b7f;
+  border: none;
+  margin-top: 0;;
+  color: white;
+  font-size: 13px;
+  font-weight: 400; 
+}
+
+.change-avatar-btn {
+  margin-top: 55px;
+}
+
+.socialbtn {
+  width: 120px;
+  height: 50px;
+  border-radius: 8px;
+}
+
+.textbluebold {
+  color: #063657;
+  font-weight: 400;
+}
+
+a.delete:link {
+  color: red;
+  margin-left: 40px;
+}
+
+.required {
+  color: red;
+}

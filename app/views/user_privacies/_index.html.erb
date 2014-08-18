@@ -1,0 +1,19 @@
+<% @employments.each do |emp| %>
+  <div class="item">
+    <p class="item-name"><%= emp.company %></p>
+    <%= link_to "Delete", " ",  :class => "item-del",:style =>"margin-top: -17px;" %>
+  </div><!-- item -->
+<% end %>
+
+<style>
+  .item-del{
+    color: #d65151;
+    height: 20px;
+    width: auto;
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: uppercase;
+    cursor: pointer;
+    float:right;
+  }
+</style>

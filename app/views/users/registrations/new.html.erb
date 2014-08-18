@@ -1,0 +1,392 @@
+<div class="xs-text-center" data-ng-hide="canidateRegistrationFormIsHidden">
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="layout xs-mb1">
+      <div class="layout__item xs-text-left sm-10of12">
+        <h1 class="text-black-light xs-beta">Create Profile</h1>
+      </div>
+    </div>
+    <div class="layout xs-mb1">
+      <div class="layout__item sm-10of12">
+        <hr>
+      </div>
+    </div>
+    <div class="layout xs-mb2">
+      <div class="layout__item xs-text-left sm-10of12">
+        <a class="link text-uppercase" href="/users/auth/linkedin">Quickly create a profile with LinkedIn ⇢</a>
+      </div>
+    </div>
+    <div class="layout">
+      <div class="layout__item xs-text-left sm-10of12">
+        <div class="layout">
+          <div class="layout__item sm-6of12 xs-mbh0">
+            <div data-ng-class="{'field--invalid': errors['name'].length}" class="field field--required" data-name="name">
+              <div data-ng-transclude="">
+                <label class="label label--block ng-scope" for="candidate-name">Name</label>
+                <input class="input input--text ng-scope ng-pristine ng-valid" data-ng-model="candidate.name" id="candidate-name" name="candidate[name]" placeholder="Elon Musk" type="text">
+              </div>
+              <!-- ngRepeat: error in errors['name'] -->
+            </div>
+          </div>
+          <div class="layout__item sm-6of12 xs-mbh0">
+            <div data-ng-class="{'field--invalid': errors['location'].length}" class="field field--required" data-name="location">
+              <div data-ng-transclude="">
+                <label class="label label--block ng-scope" for="candidate-location">Location</label>
+                <input class="input input--text ng-scope ng-pristine ng-valid" data-ng-model="candidate.location" id="candidate-location" name="candidate[location]" placeholder="San Francisco, CA" type="text">
+              </div>
+              <!-- ngRepeat: error in errors['location'] -->
+            </div>
+          </div>
+        </div>
+        <div class="layout">
+          <div class="layout__item sm-6of12 xs-mbh0">
+            <div data-ng-class="{'field--invalid': errors['email'].length}" class="field field--required" data-name="email">
+              <div data-ng-transclude="">
+                <label class="label label--block ng-scope" for="candidate-email">Email</label>
+                <input class="input input--text ng-scope ng-pristine ng-valid ng-valid-email" data-ng-model="candidate.email" id="candidate-email" name="candidate[email]" placeholder="you@example.com" type="email">
+              </div>
+              <!-- ngRepeat: error in errors['email'] -->
+            </div>
+          </div>
+          <div class="layout__item sm-6of12 xs-mbh0">
+            <div data-ng-class="{'field--invalid': errors['password'].length}" class="field field--required" data-name="password">
+              <div data-ng-transclude="">
+                <label class="label label--block ng-scope" for="candidate-password">Password</label>
+                <input class="input input--text ng-scope ng-pristine ng-valid" data-ng-model="candidate.password" id="candidate-password" name="candidate[password]" type="password">
+              </div>
+              <!-- ngRepeat: error in errors['password'] -->
+            </div>
+          </div>
+        </div>
+        <div class="layout">
+          <div class="layout__item sm-6of12 xs-mbh0">
+            <div data-ng-class="{'field--invalid': errors['work_authorization_type'].length}" class="field field--required" data-name="work_authorization_type">
+              <div data-ng-transclude="">
+                <label class="label label--block ng-scope" for="candidate-work-authorization-type">Employment eligibility status</label>
+                <select class="input input--select ng-scope ng-pristine ng-valid" data-work-authorization-type-field="" id="candidate-work-authorization-type" name="candidate[work_authorization_type]" data-ng-model="candidate.workAuthorizationType" data-ng-options="authType.type as authType.value for authType in workAuthorizationTypes"><option value="0" selected="selected">US citizen/green card holder.</option><option value="1">On an H-1B visa.</option><option value="2">On an F-1/OPT visa.</option><option value="3">On a TN visa.</option><option value="4">On a J1 visa.</option><option value="5">Eligible for a TN visa.</option><option value="6">Eligible for an E3 (Australian and New Zealand Citizens only)</option><option value="7">Eligible for an H1B1 (Singapore and Chilean Citizens only)</option><option value="8">On some other transferable visa.</option><option value="9">Need a work visa.</option></select>
+              </div>
+              <!-- ngRepeat: error in errors['work_authorization_type'] -->
+            </div>
+          </div>
+        </div>
+        <div class="layout xs-mb1">
+          <div class="layout__item">
+            <hr class="hr--dashed">
+          </div>
+        </div>
+        <div class="layout xs-mb1">
+          <div class="layout__item xs-mbh0">
+            <div data-ng-class="{'field--invalid': errors['interest_ids'].length}" class="field field--required" data-name="interest_ids">
+              <div data-ng-transclude="">
+                <label class="label label--block ng-scope">What role(s) are you most qualified for?</label>
+                <ul class="list list--grouped-switches ng-scope" data-ng-controller="CandidateInterestsCtrl">
+                  <!-- ngRepeat: (bucket_group, buckets) in labeledInterestGroups --><li class="list--grouped-switches__multiple ng-scope" data-ng-repeat="(bucket_group, buckets) in labeledInterestGroups">
+                    <label class="label ng-binding">Developers &amp; Engineers</label>
+                    <ul>
+                      <li class="layout">
+                        <!-- ngRepeat: bucket in buckets --><div class="layout__item md-6of12 lg-4of12 ng-scope" data-ng-repeat="bucket in buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_9" data-ng-model="bucket.selected" type="checkbox">
+                            Android
+                          </label>
+                        </div><!-- end ngRepeat: bucket in buckets --><div class="layout__item md-6of12 lg-4of12 ng-scope" data-ng-repeat="bucket in buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_17" data-ng-model="bucket.selected" type="checkbox">
+                            C/C++/Hardware
+                          </label>
+                        </div><!-- end ngRepeat: bucket in buckets --><div class="layout__item md-6of12 lg-4of12 ng-scope" data-ng-repeat="bucket in buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_6" data-ng-model="bucket.selected" type="checkbox">
+                            DevOps
+                          </label>
+                        </div><!-- end ngRepeat: bucket in buckets --><div class="layout__item md-6of12 lg-4of12 ng-scope" data-ng-repeat="bucket in buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_3" data-ng-model="bucket.selected" type="checkbox">
+                            HTML/CSS
+                          </label>
+                        </div><!-- end ngRepeat: bucket in buckets --><div class="layout__item md-6of12 lg-4of12 ng-scope" data-ng-repeat="bucket in buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_5" data-ng-model="bucket.selected" type="checkbox">
+                            iOS
+                          </label>
+                        </div><!-- end ngRepeat: bucket in buckets --><div class="layout__item md-6of12 lg-4of12 ng-scope" data-ng-repeat="bucket in buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_12" data-ng-model="bucket.selected" type="checkbox">
+                            Java
+                          </label>
+                        </div><!-- end ngRepeat: bucket in buckets --><div class="layout__item md-6of12 lg-4of12 ng-scope" data-ng-repeat="bucket in buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_15" data-ng-model="bucket.selected" type="checkbox">
+                            JavaScript
+                          </label>
+                        </div><!-- end ngRepeat: bucket in buckets --><div class="layout__item md-6of12 lg-4of12 ng-scope" data-ng-repeat="bucket in buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_13" data-ng-model="bucket.selected" type="checkbox">
+                            .NET
+                          </label>
+                        </div><!-- end ngRepeat: bucket in buckets --><div class="layout__item md-6of12 lg-4of12 ng-scope" data-ng-repeat="bucket in buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_18" data-ng-model="bucket.selected" type="checkbox">
+                            PHP
+                          </label>
+                        </div><!-- end ngRepeat: bucket in buckets --><div class="layout__item md-6of12 lg-4of12 ng-scope" data-ng-repeat="bucket in buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_11" data-ng-model="bucket.selected" type="checkbox">
+                            Python
+                          </label>
+                        </div><!-- end ngRepeat: bucket in buckets --><div class="layout__item md-6of12 lg-4of12 ng-scope" data-ng-repeat="bucket in buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_8" data-ng-model="bucket.selected" type="checkbox">
+                            QA/Security/Test
+                          </label>
+                        </div><!-- end ngRepeat: bucket in buckets --><div class="layout__item md-6of12 lg-4of12 ng-scope" data-ng-repeat="bucket in buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_10" data-ng-model="bucket.selected" type="checkbox">
+                            Ruby
+                          </label>
+                        </div><!-- end ngRepeat: bucket in buckets -->
+                      </li>
+                    </ul>
+                  </li><!-- end ngRepeat: (bucket_group, buckets) in labeledInterestGroups -->
+                  <!-- ngRepeat: bucket in interests | filter:{group: null} | orderBy : orderOtherLast --><li data-ng-repeat="bucket in interests | filter:{group: null} | orderBy : orderOtherLast" class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_7" data-ng-model="bucket.selected" type="checkbox">
+                      Data Scientist
+                      <span class="badge badge--list--grouped-switches__multiple ng-binding"></span>
+                    </label>
+                  </li><!-- end ngRepeat: bucket in interests | filter:{group: null} | orderBy : orderOtherLast --><li data-ng-repeat="bucket in interests | filter:{group: null} | orderBy : orderOtherLast" class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_19" data-ng-model="bucket.selected" type="checkbox">
+                      Engineering Manager
+                      <span class="badge badge--list--grouped-switches__multiple ng-binding"></span>
+                    </label>
+                  </li><!-- end ngRepeat: bucket in interests | filter:{group: null} | orderBy : orderOtherLast --><li data-ng-repeat="bucket in interests | filter:{group: null} | orderBy : orderOtherLast" class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_16" data-ng-model="bucket.selected" type="checkbox">
+                      Product Manager
+                      <span class="badge badge--list--grouped-switches__multiple ng-binding"></span>
+                    </label>
+                  </li><!-- end ngRepeat: bucket in interests | filter:{group: null} | orderBy : orderOtherLast --><li data-ng-repeat="bucket in interests | filter:{group: null} | orderBy : orderOtherLast" class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_28" data-ng-model="bucket.selected" type="checkbox">
+                      Recruiter
+                      <span class="badge badge--list--grouped-switches__multiple ng-binding"></span>
+                    </label>
+                  </li><!-- end ngRepeat: bucket in interests | filter:{group: null} | orderBy : orderOtherLast --><li data-ng-repeat="bucket in interests | filter:{group: null} | orderBy : orderOtherLast" class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_1" data-ng-model="bucket.selected" type="checkbox">
+                      UX/UI Designer
+                      <span class="badge badge--list--grouped-switches__multiple ng-binding"></span>
+                    </label>
+                  </li><!-- end ngRepeat: bucket in interests | filter:{group: null} | orderBy : orderOtherLast --><li data-ng-repeat="bucket in interests | filter:{group: null} | orderBy : orderOtherLast" class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-id="bucket_14" data-ng-model="bucket.selected" type="checkbox">
+                      Other
+                      <span class="badge badge--list--grouped-switches__multiple ng-binding"></span>
+                    </label>
+                  </li><!-- end ngRepeat: bucket in interests | filter:{group: null} | orderBy : orderOtherLast -->
+                </ul>
+
+              </div>
+              <!-- ngRepeat: error in errors['interest_ids'] -->
+            </div>
+          </div>
+        </div>
+        <div class="layout xs-mbh0">
+          <div class="layout__item xs-mbh0">
+            <div data-ng-class="{'field--invalid': errors['location_bucket_ids'].length}" class="field field--required" data-name="location_bucket_ids">
+              <div data-ng-transclude="">
+                <label class="label label--block ng-scope">Where do you want to work?</label>
+                <ul class="list list--grouped-switches ng-scope" data-ng-controller="CandidateLocationBucketsCtrl" data-ng-init="noNameRegion = (locationRegions | filter:{name: 'null'})[0]">
+                  <!-- ngRepeat: region in (locationRegions | filter:{name: '!null'} | orderBy:'name':true) --><li class="list--grouped-switches__multiple ng-scope" data-ng-repeat="region in (locationRegions | filter:{name: '!null'} | orderBy:'name':true)">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox input--checkbox--multiple ng-pristine ng-valid" data-collection="region.buckets" data-ng-model="bucket.selected" type="checkbox">
+                      San Francisco Bay Area
+                    </label>
+                    <ul>
+                      <li class="layout">
+                        <!-- ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            East Bay
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            North Bay
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            Peninsula
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            San Francisco
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            South Bay
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets -->
+                      </li>
+                    </ul>
+                  </li><!-- end ngRepeat: region in (locationRegions | filter:{name: '!null'} | orderBy:'name':true) --><li class="list--grouped-switches__multiple ng-scope" data-ng-repeat="region in (locationRegions | filter:{name: '!null'} | orderBy:'name':true)">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox input--checkbox--multiple ng-pristine ng-valid" data-collection="region.buckets" data-ng-model="bucket.selected" type="checkbox">
+                      New York
+                    </label>
+                    <ul>
+                      <li class="layout">
+                        <!-- ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            Brooklyn / Queens
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            Connecticut
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            Manhattan
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            New Jersey
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            Other / Greater NYC
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets -->
+                      </li>
+                    </ul>
+                  </li><!-- end ngRepeat: region in (locationRegions | filter:{name: '!null'} | orderBy:'name':true) --><li class="list--grouped-switches__multiple ng-scope" data-ng-repeat="region in (locationRegions | filter:{name: '!null'} | orderBy:'name':true)">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox input--checkbox--multiple ng-pristine ng-valid" data-collection="region.buckets" data-ng-model="bucket.selected" type="checkbox">
+                      Los Angeles
+                    </label>
+                    <ul>
+                      <li class="layout">
+                        <!-- ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            Downtown / Mid Wilshire
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            Hollywood
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            Other / Orange County
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            Pasadena
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            San Fernando Valley
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets --><div class="layout__item location-bucket md-4of12 ng-scope" data-ng-repeat="bucket in region.buckets">
+                          <label class="label ng-binding">
+                            <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                            Westside / South Bay
+                          </label>
+                        </div><!-- end ngRepeat: bucket in region.buckets -->
+                      </li>
+                    </ul>
+                  </li><!-- end ngRepeat: region in (locationRegions | filter:{name: '!null'} | orderBy:'name':true) -->
+                  <!-- ngRepeat: bucket in noNameRegion.buckets | orderBy: remoteAtBottom --><li data-ng-repeat="bucket in noNameRegion.buckets | orderBy: remoteAtBottom " class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                      Atlanta
+                    </label>
+                  </li><!-- end ngRepeat: bucket in noNameRegion.buckets | orderBy: remoteAtBottom --><li data-ng-repeat="bucket in noNameRegion.buckets | orderBy: remoteAtBottom " class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                      Austin
+                    </label>
+                  </li><!-- end ngRepeat: bucket in noNameRegion.buckets | orderBy: remoteAtBottom --><li data-ng-repeat="bucket in noNameRegion.buckets | orderBy: remoteAtBottom " class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                      Boston
+                    </label>
+                  </li><!-- end ngRepeat: bucket in noNameRegion.buckets | orderBy: remoteAtBottom --><li data-ng-repeat="bucket in noNameRegion.buckets | orderBy: remoteAtBottom " class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                      Chicago
+                    </label>
+                  </li><!-- end ngRepeat: bucket in noNameRegion.buckets | orderBy: remoteAtBottom --><li data-ng-repeat="bucket in noNameRegion.buckets | orderBy: remoteAtBottom " class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                      San Diego
+                    </label>
+                  </li><!-- end ngRepeat: bucket in noNameRegion.buckets | orderBy: remoteAtBottom --><li data-ng-repeat="bucket in noNameRegion.buckets | orderBy: remoteAtBottom " class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                      Seattle
+                    </label>
+                  </li><!-- end ngRepeat: bucket in noNameRegion.buckets | orderBy: remoteAtBottom --><li data-ng-repeat="bucket in noNameRegion.buckets | orderBy: remoteAtBottom " class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                      Washington, D.C.
+                    </label>
+                  </li><!-- end ngRepeat: bucket in noNameRegion.buckets | orderBy: remoteAtBottom --><li data-ng-repeat="bucket in noNameRegion.buckets | orderBy: remoteAtBottom " class="ng-scope">
+                    <label class="label ng-binding">
+                      <input class="input input--checkbox ng-pristine ng-valid" data-ng-model="bucket.selected" type="checkbox">
+                      Remote
+                    </label>
+                  </li><!-- end ngRepeat: bucket in noNameRegion.buckets | orderBy: remoteAtBottom -->
+                </ul>
+
+              </div>
+              <!-- ngRepeat: error in errors['location_bucket_ids'] -->
+            </div>
+          </div>
+        </div>
+
+        <div class="layout">
+          <div class="layout__item sm-5of12">
+            <div data-ng-class="{'field--invalid': [].length}" class="field">
+              <div data-ng-transclude="">
+                <input class="button button--block button--primary ng-scope" type="submit" value="Create profile">
+              </div>
+              <!-- ngRepeat: error in [] -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  </div>
+
+  <h1>Talent</h1>
+  <h2>Create Profile</h2>
+
+
+  <div class="form-inputs">
+    <%= f.input :email, :required => true, :autofocus => true %>
+    <%= f.input :password, :required => true %>
+    <%= f.input :password_confirmation, :required => true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "users/shared/links" %>
